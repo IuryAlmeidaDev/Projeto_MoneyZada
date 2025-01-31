@@ -29,15 +29,16 @@ public class TransactionService {
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
+    public Transaction updateTransaction(Long id, Transaction updatedTransaction) {
+        return repository.findById(id).map(transaction -> {
+            transaction.setAmount(updatedTransaction.getAmount());
+            transaction.setType(updatedTransaction.getType());
+            transaction.setDate(updatedTransaction.getDate());
+            return repository.save(transaction);
+        }).orElseThrow(() -> new RuntimeException("Transação não encontrada"));
+    }
 
-public Transaction updateTransaction(Long id, Transaction updatedTransaction) {
-    return repository.findById(id).map(transaction -> {
-        transaction.setAmount(updatedTransaction.getAmount());
-        transaction.setType(updatedTransaction.getType());
-        transaction.setDate(updatedTransaction.getDate());
-        return repository.save(transaction);
-    }).orElseThrow(() -> new RuntimeException("Transaction not found"));
+    public void deleteTransaction(Long id) {
+        repository.deleteById(id);
+    }
 }
-public void deleteTransaction(Long id) {
-    repository.deleteById(id);
-}}

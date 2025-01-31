@@ -30,11 +30,13 @@ public class TransactionController {
         return service.getBalance();
     }
 
-@PutMapping("/{id}")
-public Transaction updateTransaction(@PathVariable Long id, @RequestBody Transaction transaction) {
-    return service.updateTransaction(id, transaction);
+    @PutMapping("/{id}")
+    public Transaction updateTransaction(@PathVariable Long id, @RequestBody Transaction transaction) {
+        return service.updateTransaction(id, transaction);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteTransaction(@PathVariable Long id) {
+        service.deleteTransaction(id);
+    }
 }
-@DeleteMapping("/{id}")
-public void deleteTransaction(@PathVariable Long id) {
-    service.deleteTransaction(id);
-}}
