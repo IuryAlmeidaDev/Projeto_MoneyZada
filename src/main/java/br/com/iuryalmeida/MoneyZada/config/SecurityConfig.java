@@ -21,6 +21,8 @@ public class SecurityConfig {
         http.csrf().disable()
             .authorizeHttpRequests(authorizeRequests -> authorizeRequests
                 .requestMatchers("/users/register").permitAll() // Permitir acesso ao endpoint de registro
+                .requestMatchers("/h2-console/**").permitAll() // Permitir acesso ao console do H2
+                .requestMatchers("/transactions**").permitAll() // Permitir acesso ao console do H2
                 .anyRequest().authenticated()
             )
             .formLogin(formLogin -> formLogin
@@ -28,6 +30,9 @@ public class SecurityConfig {
             )
             .logout(logout -> logout
                 .permitAll() // Permitir logout
+            )
+            .headers(headers -> headers
+                .frameOptions().sameOrigin() // Permitir que o console do H2 seja carregado em um iframe
             );
         return http.build();
     }
