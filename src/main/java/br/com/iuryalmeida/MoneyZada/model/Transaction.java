@@ -24,7 +24,6 @@ public class Transaction {
 
     private LocalDateTime date;
 
-    // Getters and Setters
     public Long getId() {
         return id;
     }
